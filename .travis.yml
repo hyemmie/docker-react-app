@@ -1,21 +1,15 @@
-# 관리자 권한 갖기
 sudo: required
 
-# 언어(플랫폼)선택
 language: generic
 
-# 도커 환경 구성
 services:
 	- docker
 
-# 스크립트를 실행하기 전에 수행할 것 -> 여기서는 이미지 만들기!
 before_install:
 	- echo "start Creating an image with dockerfile"
 	- docker build -t hyemmie/docker-react-app -f Dockerfile.dev ./
 
-# 실행할 스크립트(테스트)
 script:
 	- docker run -e CI=true hyemmie/docker-react-app npm run test -- --coverage
 
-# 테스트 성공 후 할 일
 	- echo "Test Success"
